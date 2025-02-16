@@ -1,4 +1,10 @@
-const { Client, GatewayIntentBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const {
+  Client,
+  GatewayIntentBits,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+} = require('discord.js');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -14,7 +20,7 @@ client.once('ready', () => {
 
 client.on('interactionCreate', async interaction => {
   if (!interaction.isButton()) return;
-
+  
   switch (interaction.customId) {
     case 'wato-increment':
       watoCount++;
@@ -37,41 +43,41 @@ client.on('interactionCreate', async interaction => {
     default:
       return;
   }
-
+  
   const updatedContent = `**Wato's Poop Count:** ${watoCount}\n**Em's Poop Count:** ${emCount}`;
-
+  
   const row1 = new ActionRowBuilder()
-    .addComponents(
-      new ButtonBuilder()
-        .setCustomId('wato-increment')
-        .setLabel('Wato +1 💩')
-        .setStyle(ButtonStyle.Primary),
-      new ButtonBuilder()
-        .setCustomId('wato-decrement')
-        .setLabel('Wato -1 💩')
-        .setStyle(ButtonStyle.Secondary),
-      new ButtonBuilder()
-        .setCustomId('wato-reset')
-        .setLabel('Wato Reset')
-        .setStyle(ButtonStyle.Danger)
-    );
-
+  .addComponents(
+    new ButtonBuilder()
+    .setCustomId('wato-increment')
+    .setLabel('Wato +1 💩')
+    .setStyle(ButtonStyle.Primary),
+    new ButtonBuilder()
+    .setCustomId('wato-decrement')
+    .setLabel('Wato -1 💩')
+    .setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder()
+    .setCustomId('wato-reset')
+    .setLabel('Wato Reset')
+    .setStyle(ButtonStyle.Danger),
+  );
+  
   const row2 = new ActionRowBuilder()
-    .addComponents(
-      new ButtonBuilder()
-        .setCustomId('em-increment')
-        .setLabel('Em +1 💩')
-        .setStyle(ButtonStyle.Primary),
-      new ButtonBuilder()
-        .setCustomId('em-decrement')
-        .setLabel('Em -1 💩')
-        .setStyle(ButtonStyle.Secondary),
-      new ButtonBuilder()
-        .setCustomId('em-reset')
-        .setLabel('Em Reset')
-        .setStyle(ButtonStyle.Danger)
-    );
-
+  .addComponents(
+    new ButtonBuilder()
+    .setCustomId('em-increment')
+    .setLabel('Em +1 💩')
+    .setStyle(ButtonStyle.Primary),
+    new ButtonBuilder()
+    .setCustomId('em-decrement')
+    .setLabel('Em -1 💩')
+    .setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder()
+    .setCustomId('em-reset')
+    .setLabel('Em Reset')
+    .setStyle(ButtonStyle.Danger),
+  );
+  
   try {
     await interaction.update({ content: updatedContent, components: [row1, row2] });
   } catch (error) {
@@ -81,42 +87,42 @@ client.on('interactionCreate', async interaction => {
 
 client.on('messageCreate', async message => {
   if (message.author.bot) return;
-
+  
   if (message.content === '!pmp') {
     const content = `**Wato's Poop Count:** ${watoCount}\n**Em's Poop Count:** ${emCount}`;
-
+    
     const row1 = new ActionRowBuilder()
-      .addComponents(
-        new ButtonBuilder()
-          .setCustomId('wato-increment')
-          .setLabel('Wato +1 💩')
-          .setStyle(ButtonStyle.Primary),
-        new ButtonBuilder()
-          .setCustomId('wato-decrement')
-          .setLabel('Wato -1 💩')
-          .setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder()
-          .setCustomId('wato-reset')
-          .setLabel('Wato Reset')
-          .setStyle(ButtonStyle.Danger)
-      );
-
+    .addComponents(
+      new ButtonBuilder()
+      .setCustomId('wato-increment')
+      .setLabel('Wato +1 💩')
+      .setStyle(ButtonStyle.Primary),
+      new ButtonBuilder()
+      .setCustomId('wato-decrement')
+      .setLabel('Wato -1 💩')
+      .setStyle(ButtonStyle.Secondary),
+      new ButtonBuilder()
+      .setCustomId('wato-reset')
+      .setLabel('Wato Reset')
+      .setStyle(ButtonStyle.Danger),
+    );
+    
     const row2 = new ActionRowBuilder()
-      .addComponents(
-        new ButtonBuilder()
-          .setCustomId('em-increment')
-          .setLabel('Em +1 💩')
-          .setStyle(ButtonStyle.Primary),
-        new ButtonBuilder()
-          .setCustomId('em-decrement')
-          .setLabel('Em -1 💩')
-          .setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder()
-          .setCustomId('em-reset')
-          .setLabel('Em Reset')
-          .setStyle(ButtonStyle.Danger)
-      );
-
+    .addComponents(
+      new ButtonBuilder()
+      .setCustomId('em-increment')
+      .setLabel('Em +1 💩')
+      .setStyle(ButtonStyle.Primary),
+      new ButtonBuilder()
+      .setCustomId('em-decrement')
+      .setLabel('Em -1 💩')
+      .setStyle(ButtonStyle.Secondary),
+      new ButtonBuilder()
+      .setCustomId('em-reset')
+      .setLabel('Em Reset')
+      .setStyle(ButtonStyle.Danger),
+    );
+    
     try {
       await message.channel.send({ content, components: [row1, row2] });
     } catch (error) {
