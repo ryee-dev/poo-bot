@@ -1,4 +1,10 @@
-const { Client, GatewayIntentBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const {
+  Client,
+  GatewayIntentBits,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+} = require('discord.js');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -14,7 +20,7 @@ client.once('ready', () => {
 
 client.on('interactionCreate', async interaction => {
   if (!interaction.isButton()) return;
-
+  
   if (interaction.customId === 'wato-poop') {
     button1Value++;
   } else if (interaction.customId === 'em-poop') {
@@ -23,24 +29,24 @@ client.on('interactionCreate', async interaction => {
     button1Value = 0;
     button2Value = 0;
   }
-
+  
   const updatedContent = `Total Wato Poops: **${button1Value}**\nTotal Em Poops: **${button2Value}**`;
   const row = new ActionRowBuilder()
-    .addComponents(
-      new ButtonBuilder()
-        .setCustomId('wato-poop')
-        .setLabel('wato 💩')
-        .setStyle(ButtonStyle.Primary),
-      new ButtonBuilder()
-        .setCustomId('em-poop')
-        .setLabel('em 💩')
-        .setStyle(ButtonStyle.Primary),
-      new ButtonBuilder() // Adding the Reset button
-        .setCustomId('reset')
-        .setLabel('Reset')
-        .setStyle(ButtonStyle.Danger)
-    );
-
+  .addComponents(
+    new ButtonBuilder()
+    .setCustomId('wato-poop')
+    .setLabel('wato 💩')
+    .setStyle(ButtonStyle.Primary),
+    new ButtonBuilder()
+    .setCustomId('em-poop')
+    .setLabel('em 💩')
+    .setStyle(ButtonStyle.Primary),
+    new ButtonBuilder() // Adding the Reset button
+    .setCustomId('reset')
+    .setLabel('Reset')
+    .setStyle(ButtonStyle.Danger),
+  );
+  
   try {
     await interaction.update({ content: updatedContent, components: [row] });
   } catch (error) {
@@ -50,28 +56,28 @@ client.on('interactionCreate', async interaction => {
 
 client.on('messageCreate', async message => {
   console.log(`Received message: ${message.content}`);
-
+  
   if (message.author.bot) return;
-
+  
   if (message.content === '!pmp') {
     console.log('!pmp command received');
     const content = `Total Wato Poops: **${button1Value}**\nTotal Em Poops: **${button2Value}**`;
     const row = new ActionRowBuilder()
-      .addComponents(
-        new ButtonBuilder()
-          .setCustomId('wato-poop')
-          .setLabel('wato 💩')
-          .setStyle(ButtonStyle.Primary),
-        new ButtonBuilder()
-          .setCustomId('em-poop')
-          .setLabel('em 💩')
-          .setStyle(ButtonStyle.Primary),
-        new ButtonBuilder() // Adding the Reset button
-          .setCustomId('reset')
-          .setLabel('Reset')
-          .setStyle(ButtonStyle.Danger)
-      );
-
+    .addComponents(
+      new ButtonBuilder()
+      .setCustomId('wato-poop')
+      .setLabel('wato 💩')
+      .setStyle(ButtonStyle.Primary),
+      new ButtonBuilder()
+      .setCustomId('em-poop')
+      .setLabel('em 💩')
+      .setStyle(ButtonStyle.Primary),
+      new ButtonBuilder() // Adding the Reset button
+      .setCustomId('reset')
+      .setLabel('Reset')
+      .setStyle(ButtonStyle.Danger),
+    );
+    
     try {
       const sentMessage = await message.channel.send({ content, components: [row] });
       console.log('Buttons sent');
