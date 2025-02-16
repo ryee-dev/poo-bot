@@ -39,7 +39,8 @@ client.on('interactionCreate', async interaction => {
   }
 
   const updatedContent = `**Wato's Poop Count:** ${watoCount}\n**Em's Poop Count:** ${emCount}`;
-  const row = new ActionRowBuilder()
+
+  const row1 = new ActionRowBuilder()
     .addComponents(
       new ButtonBuilder()
         .setCustomId('wato-increment')
@@ -52,7 +53,11 @@ client.on('interactionCreate', async interaction => {
       new ButtonBuilder()
         .setCustomId('wato-reset')
         .setLabel('Wato Reset')
-        .setStyle(ButtonStyle.Danger),
+        .setStyle(ButtonStyle.Danger)
+    );
+
+  const row2 = new ActionRowBuilder()
+    .addComponents(
       new ButtonBuilder()
         .setCustomId('em-increment')
         .setLabel('Em +1 💩')
@@ -68,7 +73,7 @@ client.on('interactionCreate', async interaction => {
     );
 
   try {
-    await interaction.update({ content: updatedContent, components: [row] });
+    await interaction.update({ content: updatedContent, components: [row1, row2] });
   } catch (error) {
     console.error('Error updating message:', error);
   }
@@ -79,7 +84,8 @@ client.on('messageCreate', async message => {
 
   if (message.content === '!pmp') {
     const content = `**Wato's Poop Count:** ${watoCount}\n**Em's Poop Count:** ${emCount}`;
-    const row = new ActionRowBuilder()
+
+    const row1 = new ActionRowBuilder()
       .addComponents(
         new ButtonBuilder()
           .setCustomId('wato-increment')
@@ -92,7 +98,11 @@ client.on('messageCreate', async message => {
         new ButtonBuilder()
           .setCustomId('wato-reset')
           .setLabel('Wato Reset')
-          .setStyle(ButtonStyle.Danger),
+          .setStyle(ButtonStyle.Danger)
+      );
+
+    const row2 = new ActionRowBuilder()
+      .addComponents(
         new ButtonBuilder()
           .setCustomId('em-increment')
           .setLabel('Em +1 💩')
@@ -108,7 +118,7 @@ client.on('messageCreate', async message => {
       );
 
     try {
-      await message.channel.send({ content, components: [row] });
+      await message.channel.send({ content, components: [row1, row2] });
     } catch (error) {
       console.error('Error sending buttons:', error);
     }
