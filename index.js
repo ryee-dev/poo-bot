@@ -44,7 +44,7 @@ client.on('interactionCreate', async interaction => {
       return;
   }
   
-  const updatedContent = `**Wato's Poop Count:** ${watoCount}\n**Em's Poop Count:** ${emCount}`;
+  const updatedContent = `Wato's Poop Count: **${watoCount}**\n Em's Poop Count: **${emCount}**`;
   
   const row1 = new ActionRowBuilder()
   .addComponents(
@@ -89,7 +89,7 @@ client.on('messageCreate', async message => {
   if (message.author.bot) return;
   
   if (message.content === '!pmp') {
-    const content = `**Wato's Poop Count:** ${watoCount}\n**Em's Poop Count:** ${emCount}`;
+    const content = `Wato's Poop Count: **${watoCount}**\n Em's Poop Count: **${emCount}**`;
     
     const row1 = new ActionRowBuilder()
     .addComponents(
